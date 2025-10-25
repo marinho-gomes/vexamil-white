@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prostate Health</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: transparent;
+            color: #333;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .pre-headline {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 0;
+            display: none;
+        }
+
+        .headline {
+            font-size: 44px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 0;
+            color: #003d8f;
+        }
+
+        .headline .accent {
+            color: #ff0000;
+        }
+
+        .subheadline {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 0;
+            font-weight: 400;
+            display: none;
+        }
+
+        .urgency-badge {
+            display: none;
+        }
+
+        /* VIDEO SECTION */
+        .video-section {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #000;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        /* COUNTDOWN TIMER */
+        .countdown-section {
+            background-color: #e8f0ff;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 50px;
+            border-radius: 8px;
+        }
+
+        .countdown-label {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .countdown-timer {
+            font-size: 56px;
+            font-weight: 900;
+            color: #ff0000;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* PRICING SECTION */
+        .pricing-section {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .pricing-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0f1c3f;
+            margin-bottom: 30px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+
+        .pricing-card {
+            position: relative;
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 32px 24px;
+            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.12);
+            border: 2px solid rgba(15, 23, 42, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .pricing-header {
+            width: 100%;
+            background: #2f3f60;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            padding: 10px 0;
+            border-radius: 12px;
+        }
+
+        .pricing-card--featured {
+            background: linear-gradient(180deg, #0d2f6f 0%, #04163f 100%);
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            transform: scale(1.02);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #38d686;
+            color: #052e16;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            padding: 6px 18px;
+            border-radius: 999px;
+            box-shadow: 0 10px 22px rgba(56, 214, 134, 0.35);
+        }
+
+        .pricing-card--featured .pricing-badge {
+            background: #facc15;
+            color: #0f172a;
+            box-shadow: 0 10px 22px rgba(250, 204, 21, 0.25);
+        }
+
+        .pricing-card--featured .pricing-header {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .pricing-title-line {
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            text-align: center;
+        }
+
+        .pricing-title-line--primary {
+            color: #1f2937;
+        }
+
+        .pricing-title-line--secondary {
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .pricing-card--featured .pricing-title-line--primary,
+        .pricing-card--featured .pricing-title-line--secondary {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .pricing-image {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 8px 0 4px;
+        }
+
+        .pricing-image img {
+            display: block;
+            max-width: 180px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .pricing-card--featured .pricing-image img {
+            max-width: 220px;
+        }
+
+        .pricing-price {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            font-weight: 800;
+        }
+
+        .pricing-price-original,
+        .pricing-total-original {
+            position: relative;
+            color: #475569;
+            font-size: 24px;
+            padding: 0 4px;
+        }
+
+        .pricing-price-original::after,
+        .pricing-total-original::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 3px;
+            background: #ef4444;
+            transform: rotate(-5deg);
+        }
+
+        .pricing-card--featured .pricing-price-original,
+        .pricing-card--featured .pricing-total-original {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .pricing-price-current {
+            font-size: 50px;
+            color: #0f172a;
+            line-height: 1;
+        }
+
+        .pricing-card--featured .pricing-price-current {
+            color: #ffffff;
+        }
+
+        .pricing-price-unit {
+            font-size: 18px;
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .pricing-card--featured .pricing-price-unit {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .pricing-button {
+            display: inline-block;
+            background: #1ccf7a;
+            color: #ffffff;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            padding: 14px 32px;
+            border-radius: 999px;
+            text-decoration: none;
+            box-shadow: 0 16px 28px rgba(28, 207, 122, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .pricing-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 32px rgba(28, 207, 122, 0.45);
+        }
+
+        .pricing-card--featured .pricing-button {
+            box-shadow: 0 16px 28px rgba(28, 207, 122, 0.55);
+        }
+
+        .pricing-shipping {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .pricing-card--featured .pricing-shipping {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .pricing-icon {
+            font-size: 18px;
+        }
+
+        .pricing-payment img {
+            width: 180px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .pricing-card--featured .pricing-payment img {
+            filter: none;
+        }
+
+        .pricing-total {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            font-weight: 800;
+        }
+
+        .pricing-total-label {
+            font-size: 18px;
+            color: #1f2937;
+        }
+
+        .pricing-card--featured .pricing-total-label {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .pricing-total-current {
+            font-size: 30px;
+            color: #0f172a;
+        }
+
+        .pricing-card--featured .pricing-total-current {
+            color: #ffffff;
+        }
+
+        .pricing-benefits {
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+        }
+
+        .pricing-benefits span {
+            padding: 4px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .pricing-benefits span:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-benefits span.primary {
+            font-size: 15px;
+            font-weight: 700;
+            color: #111827;
+            border-bottom: 2px solid #1ccf7a;
+        }
+
+        .pricing-card--featured .pricing-benefits span,
+        .pricing-card--featured .pricing-benefits span.primary {
+            color: rgba(255, 255, 255, 0.92);
+            border-bottom-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .pricing-card--featured .pricing-benefits span.primary {
+            border-bottom-color: #facc15;
+        }
+
+        .pricing-note {
+            margin-top: 24px;
+            font-size: 14px;
+            color: #667085;
+        }
+
+        /* Reorder elements in featured pricing card */
+        .pricing-card--featured .pricing-shipping {
+            order: 1;
+        }
+
+        .pricing-card--featured .pricing-payment {
+            order: 2;
+            margin-top: 8px;
+        }
+
+        .pricing-card--featured .pricing-total {
+            order: 3;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-title {
+                font-size: 26px;
+            }
+
+            .pricing-card {
+                padding: 28px 20px;
+            }
+
+            .pricing-price-current {
+                font-size: 42px;
+            }
+
+            .pricing-image img {
+                max-width: 150px;
+            }
+
+            /* Reorder pricing cards on mobile - make featured card first */
+            .pricing-grid {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .pricing-card:first-child {
+                order: 2;
+            }
+
+            .pricing-card--featured {
+                order: 1;
+            }
+
+            .pricing-card:last-child {
+                order: 3;
+            }
+
+            .pricing-benefits {
+                font-size: 13px;
+            }
+        }
+
+        /* REFERENCES SECTION */
+        .references-section {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+
+        .references-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #222;
+        }
+
+        .reference-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .reference-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 3px solid #667eea;
+            border-radius: 4px;
+        }
+
+        .reference-item h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #667eea;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .reference-item p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* CITATIONS SECTION */
+        .citations-section {
+            background-color: #f5f5f5;
+            padding: 40px 20px;
+            margin-bottom: 0;
+        }
+
+        .citations-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .citation-column {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .citation-list {
+            list-style: disc;
+            margin-left: 20px;
+        }
+
+        .citation-list li {
+            margin-bottom: 8px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #000;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid #444;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0 8px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #aaa;
+        }
+
+        .divider {
+            color: white;
+            margin: 0 0;
+        }
+
+        .footer-copyright {
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .footer-disclaimer {
+            font-size: 11px;
+            color: #ccc;
+            line-height: 1.8;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-disclaimer p {
+            margin-bottom: 12px;
+        }
+
+        .esconder{
+            display: none;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .headline {
+                font-size: 32px;
+            }
+
+            .subheadline {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .bottle-title {
+                font-size: 24px;
+            }
+
+            .bottle-price {
+                font-size: 28px;
+            }
+
+            .bottle-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .references-section {
+                padding: 25px;
+            }
+
+            .citations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                gap: 0;
+                font-size: 12px;
+            }
+
+            .footer-links a {
+                padding: 0 6px;
+            }
+
+            .footer-disclaimer {
+                font-size: 10px;
+            }
+
+            .money-back-badge {
+                width: 50px;
+                height: 50px;
+                font-size: 8px;
+            }
+
+            .bottle-image {
+                min-height: 200px;
+            }
+        }
+    </style>
+    <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+    <link rel="preload" href="https://scripts.converteai.net/bae8caa6-7814-4f04-8459-be146bc66749/players/68f69554d2c6f9d0e5545352/v4/player.js" as="script">
+    <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+    <link rel="preload" href="https://cdn.converteai.net/bae8caa6-7814-4f04-8459-be146bc66749/68f694b6c76425f5f334d155/main.m3u8" as="fetch">
+    <link rel="dns-prefetch" href="https://cdn.converteai.net">
+    <link rel="dns-prefetch" href="https://scripts.converteai.net">
+    <link rel="dns-prefetch" href="https://images.converteai.net">
+    <link rel="dns-prefetch" href="https://api.vturb.com.br">
+</head>
+<body>
+    <div class="container">
+        <!-- HERO SECTION WITH HEADLINE -->
+        <section class="hero">
+            <h1 class="headline">Why Thousands of Men Over 50 Are Ditching <span class="accent">Embarrassing Bathroom Problems</span>—Here's Their Secret </h1>
+        </section>
+
+        <!-- VIDEO SECTION -->
+        <section class="video-section">
+            <vturb-smartplayer id="vid-68f69554d2c6f9d0e5545352" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/bae8caa6-7814-4f04-8459-be146bc66749/players/68f69554d2c6f9d0e5545352/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
+        </section>
+
+        <!-- PRICING SECTION -->
+        <section class="pricing-section esconder" id="order">
+            <h2 class="pricing-title">Choose Your Prostavax Package</h2>
+            <div class="pricing-grid">
+                <article class="pricing-card">
+                    <div class="pricing-header">Basic</div>
+                    <p class="pricing-title-line pricing-title-line--primary">2 Bottles</p>
+                    <p class="pricing-title-line pricing-title-line--secondary">30 Day Supply</p>
+                    <div class="pricing-image">
+                        <img src="../Harvard_VSL_files/2_bottles_prostavax.png" alt="Two bottles of Prostavax">
+                    </div>
+                    <div class="pricing-price">
+                        <span class="pricing-price-original">$197</span>
+                        <span class="pricing-price-current">$79</span>
+                        <span class="pricing-price-unit">/ Bottle</span>
+                    </div>
+                    <div class="pricing-benefits">
+                        <span class="primary">You Save $140!</span>
+                        <span>60 Day Guarantee</span>
+                    </div>
+                    <a class="pricing-button" href="https://trk.meltrify.com/click/1">Buy Now!</a>
+                    <div class="pricing-shipping">
+                        <span class="pricing-icon" aria-hidden="true">📦</span>
+                        <span>+ Shipping</span>
+                    </div>
+                    <div class="pricing-payment">
+                        <img src="../Harvard_VSL_files/cards-dark.webp" alt="Accepted payment cards">
+                    </div>
+                    <div class="pricing-total">
+                        <span class="pricing-total-label">Total:</span>
+                        <span class="pricing-total-original">$394</span>
+                        <span class="pricing-total-current">$158</span>
+                    </div>
+                </article>
+
+                <article class="pricing-card pricing-card--featured">
+                    <span class="pricing-badge">Best Value</span>
+                    <div class="pricing-header">Buy 3 Get + 3 Free</div>
+                    <p class="pricing-title-line pricing-title-line--primary">180 Day Supply</p>
+                    <div class="pricing-image">
+                        <img src="../Harvard_VSL_files/6-bottle-prostavax.png" alt="Six bottle bundle of Prostavax">
+                    </div>
+                    <div class="pricing-price">
+                        <span class="pricing-price-original">$197</span>
+                        <span class="pricing-price-current">$39</span>
+                        <span class="pricing-price-unit">/ Bottle</span>
+                    </div>
+                    <div class="pricing-benefits">
+                        <span class="primary">You Save $600!</span>
+                        <span>Biggest Discount</span>
+                        <span>+ 2 Free Bonuses</span>
+                        <span>60 Day Guarantee</span>
+                    </div>
+                    <a class="pricing-button" href="https://trk.meltrify.com/click/3">Buy Now!</a>
+                    <div class="pricing-shipping">
+                        <span class="pricing-icon" aria-hidden="true">📦</span>
+                        <span>Free US Shipping</span>
+                    </div>
+                    <div class="pricing-payment">
+                        <img src="../Harvard_VSL_files/cards.webp" alt="Accepted payment cards">
+                    </div>
+                    <div class="pricing-total">
+                        <span class="pricing-total-label">Total:</span>
+                        <span class="pricing-total-original">$1182</span>
+                        <span class="pricing-total-current">$234</span>
+                    </div>
+                </article>
+
+                <article class="pricing-card">
+                    <div class="pricing-header">Most Popular</div>
+                    <p class="pricing-title-line pricing-title-line--primary">Buy 2 Get + 1 Free</p>
+                    <p class="pricing-title-line pricing-title-line--secondary">90 Day Supply</p>
+                    <div class="pricing-image">
+                        <img src="../Harvard_VSL_files/3_bottles_Prostavax.png" alt="Three bottle bundle of Prostavax">
+                    </div>
+                    <div class="pricing-price">
+                        <span class="pricing-price-original">$197</span>
+                        <span class="pricing-price-current">$69</span>
+                        <span class="pricing-price-unit">/ Bottle</span>
+                    </div>
+                    <div class="pricing-benefits">
+                        <span class="primary">You Save $240!</span>
+                        <span>60 Day Guarantee</span>
+                    </div>
+                    <a class="pricing-button" href="https://trk.meltrify.com/click/2">Buy Now!</a>
+                    <div class="pricing-shipping">
+                        <span class="pricing-icon" aria-hidden="true">📦</span>
+                        <span>Free US Shipping</span>
+                    </div>
+                    <div class="pricing-payment">
+                        <img src="../Harvard_VSL_files/cards-dark.webp" alt="Accepted payment cards">
+                    </div>
+                    <div class="pricing-total">
+                        <span class="pricing-total-label">Total:</span>
+                        <span class="pricing-total-original">$591</span>
+                        <span class="pricing-total-current">$207</span>
+                    </div>
+                </article>
+            </div>
+            <p class="pricing-note">Limited-time savings. Backed by our 60-day money-back guarantee.</p>
+        </section>
+
+        <!-- SCIENTIFIC REFERENCES SECTION -->
+        <section class="references-section">
+            <h2 class="references-title">Backed By Science</h2>
+            <div class="reference-list">
+                <div class="reference-item">
+                    <h4>🔬 Clinical Study</h4>
+                    <p><strong>Journal of Applied Research</strong> - "Proven effectiveness in double-blind peer-reviewed studies with 94% success rate."</p>
+                </div>
+                <div class="reference-item">
+                    <h4>🏆 Expert Endorsed</h4>
+                    <p><strong>Dr. Sarah Mitchell, MD</strong> - Recognized by leading health professionals and recommended to patients worldwide.</p>
+                </div>
+                <div class="reference-item">
+                    <h4>📊 User Results</h4>
+                    <p><strong>50,000+ Verified Reviews</strong> - Average rating 4.9/5 stars. Real customers sharing real results daily.</p>
+                </div>
+                <div class="reference-item">
+                    <h4>✅ Quality Certified</h4>
+                    <p><strong>FDA Registered & GMP Certified</strong> - Manufactured in world-class facilities with rigorous quality standards.</p>
+                </div>
+                <div class="reference-item">
+                    <h4>🧪 Ingredient Science</h4>
+                    <p><strong>Clinically Researched Ingredients</strong> - Each component selected based on 15+ years of scientific research.</p>
+                </div>
+                <div class="reference-item">
+                    <h4>⭐ Industry Awards</h4>
+                    <p><strong>Best Product 2024</strong> - Winner of multiple health & wellness industry awards and recognitions.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- REFERENCES CITATIONS SECTION -->
+    <section class="citations-section">
+        <div class="citations-grid">
+            <div class="citation-column">
+                <ul class="citation-list">
+                    <li>Aging, basal metabolic rate, and nutrition. H Shimokata, F Kuzuya - Nihon Ronen Igakkai/Zaishi 1993</li>
+                    <li>Is there evidence for an age-related reduction in metabolic rate?Leonard S. Piers, Mario J. Soares, Leanne M. McCormack – METABOLISM/Dec 1998</li>
+                    <li>Thermogenic Ingredients and body weight regulation. R Hursel, M S Westerterp-Plantenga- Int J Obes (Lond) 2010 Apr</li>
+                    <li>Body fat loss achieved by stimulation of thermogenesis by a combination of bioactive food ingredients. Allboca, E Frantzen, J Kondrup- Int J Obes (Lond) 2007 Jan</li>
+                    <li>The effects of a single-dose thermogenic supplement on resting metabolic rate and hemodynamic variables in healthy females. Bill J. Campbell,corresponding author Gina Zito, Ryan Oelguhoun, Nic Martinez, Kristina Kendall - J Hoc Sports Nutr. 2016</li>
+                    <li>The safety of green tea and green tea extract consumption in adults. JiangHu, DonnaWeather, JoyceCan, AndrewShao - Regulatory Toxicology and Pharmacology/Volume 86, June 2018</li>
+                    <li>The Beneficial Effects of Principal Polyphenols from Green Tea. TomosusuCharin, RyuuafAulalomi, Yutaka Sivot, Shingo Goto - Molecules. 2021 Jan</li>
+                    <li>Therapeutic effect of high-dose green tea extract on weight reduction. I-Ju Chen 1, Chia-Yu Liu 1, Jung-Peng Chiu 1, Chung-Hua Hsu - Clin Nutr. 2016 Jun</li>
+                </ul>
+            </div>
+            <div class="citation-column">
+                <ul class="citation-list">
+                    <li>Resveratrol (RV): A pharmacological review and call for further research. Li-Xuzhou,enga, Chang-Jingt, Mohis LihunAksar, Muhammad SalladiKhan - Biomedicine &Pharmacotherapy/Volume 143, November 2021</li>
+                    <li>Effects of chromium on body composition and weight loss. R A Anderson - Nutr Rev. 1998 Sep</li>
+                    <li>Systematic review and meta-analysis of the efficacy and safety of chromium supplementation in diabetes. N Sukoornboom, N Poobusin, Y Yamakaiksh - J Clin Pharm Ther. 2014 Jun</li>
+                    <li>Effects of chromium picolinate on food intake and satiety. Stephen D Anton, Christopher D Morrison, William T Cefalu - Diabetes Technol Ther. 2008 Sep</li>
+                    <li>In vitro Hypoglycemic and Antioxidant Effects of Leaf and Root Extracts of Tarascum Officinale. Balan Garcia-Carrasco, Raquel Francisco-Decois, Jeason Glaston - Nat Hb. Iscusdt 2013 June</li>
+                    <li>Increase in insulin sensitivity by the association of chlorostic acid and chlorogenic acid contained in a natural chicoric acid extract (IMMULINA®): an antidiabetic effect. KarineFeronie, Luc P P Bolat, AbdulnomehAweid, Patrick Pouchard - J Ethnopharmacol. 2018 Apr</li>
+                    <li>Anti-Obesity Attributes: UHPH-L-OTP3-SMGB-Based Natural Modeling Insights of Tarascum officinale. Zain Ul Aabideen, Muhammad Wassem Mumtaz, Muhammad Toyyab Akhtar - Molecules. 2020 Oct</li>
+                    <li>Chromium supplementation of Chromogenic Acid on Weight Loss. Yanchun Zhong, Yueling Ding, Leilang Li, Melina Gu - Curr Pharm Biotecnol. 2020</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy</a>
+            <span class="divider">|</span>
+            <a href="terms.html">Terms and Conditions</a>
+            <span class="divider">|</span>
+            <a href="disclaimer.html">Disclaimer</a>
+            <span class="divider">|</span>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="footer-copyright">
+            Copyright Prostavax. All rights reserved.
+        </div>
+
+        <div class="footer-disclaimer">
+            <p>Statements on this website have not been evaluated by the Food and Drug Administration. Products are not intended to diagnose, treat, cure or prevent any disease. If you are pregnant, nursing, taking medication, or have a medical condition, consult your physician before using our products.</p>
+
+            <p>The contents of this site is for informational purposes only, and is not intended to replace professional medical advice, diagnosis or treatment. Always seek the advice of your doctor or other qualified health care professional about a medical condition, a suspected medical condition, and before starting a diet, exercise, or supplementation program or take or stop a medication.</p>
+
+            <p>The use of any information provided by this site and others appearing on the site is solely at your own risk. The site and its contents are provided "as is" ClickBank is the retailer of products on this site. ClickBank is a registered trademark of Keynetics Inc., a Delaware corporation. Our Privacy Policy and our Terms and Conditions govern your use of this site. By using this site, you agree that you have read and agreed to be bound by our Terms and Conditions. If you do not agree to our Terms and Conditions, please do not use this site. The role of ClickBank as a retailer does not constitute an endorsement, endorsement or review of such products or any claim, statement or opinion used in the promotion of such products.</p>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+
+        console.log('countdownRefresh START');
+        // Manipular todos os .countdown dentro do .esconder visível\
+  
+        /* CHANGE THE VALUE TO THE SECONDS IN THE VIDEO WHEN THE SECTIONS WILL APPEAR */
+        let CLASS_TO_REMOVE = ".esconder";
+  
+    var delayTime = 2888;
+      // var delayTime = 253; // antigo
+      /* END OF THE VARIABLES */
+      var player = document.querySelector("vturb-smartplayer");
+      player.addEventListener("player:ready", function() {
+          player.displayHiddenElements(delayTime, [ CLASS_TO_REMOVE ], {
+            persist: true
+          });
+      });
+      </script>
+
+</body>
+</html>
